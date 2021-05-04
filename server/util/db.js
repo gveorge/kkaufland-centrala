@@ -3,28 +3,28 @@ const mysql = require('mysql');
 // Connection Pool
 const centrala = mysql.createPool({
     connectionLimit : 100,
-    host            : '130.211.194.76',
-    user            : 'root',
-    password        : 'Bakalarka123',
+    host            : process.env.DB_HOST,
+    user            : process.env.DB_USER,
+    password        : process.env.DB_PASS,
     database        : 'kauflandcentrala',
 });
 const pools = {kauflandpezinok: mysql.createPool({
     connectionLimit : 100,
-    host            : '130.211.194.76',
-    user            : 'root',
-    password        : 'Bakalarka123',
+    host            : process.env.DB_HOST,
+    user            : process.env.DB_USER,
+    password        : process.env.DB_PASS,
     database        : 'kauflandpezinok',
 }), kauflandpoprad: mysql.createPool({
     connectionLimit : 100,
-    host            : '130.211.194.76',
-    user            : 'root',
-    password        : 'Bakalarka123',
+    host            : process.env.DB_HOST,
+    user            : process.env.DB_USER,
+    password        : process.env.DB_PASS,
     database        : 'kauflandpoprad',
 }), kauflandkosice: mysql.createPool({
     connectionLimit : 100,
-    host            : '130.211.194.76',
-    user            : 'root',
-    password        : 'Bakalarka123',
+    host            : process.env.DB_HOST,
+    user            : process.env.DB_USER,
+    password        : process.env.DB_PASS,
     database        : 'kauflandkosice',
 })};
 const POCET_POBOCIEK = 3;
