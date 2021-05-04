@@ -1,0 +1,79 @@
+{{#if removed}}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <span class="text-capitalize">{{table}}</span> has been removed.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{{/if}}
+
+<form class="row">
+    {{#each filters as |filter|}}
+    <div class="col-6">
+        <div class="form-floating mb-3">
+            {{#ifEquals filter.type 'select'}}
+            <select class="form-control" name="{{filter.name}}">
+                <option value="">{{filter.placeholder}}</option>
+                {{#each filter.options as |name value|}}
+                <option value="{{value}}" {{#ifEquals value filter.value}}selected{{/ifEquals}}>{{name}}</option>
+                {{/each}}
+            </select>
+            {{else}}
+            <input class="form-control" type="{{filter.type}}" placeholder="{{filter.placeholder}}" name="{{filter.name}}" value="{{filter.value}}">
+            {{/ifEquals}}
+            <label for="{{filter.name}}">{{filter.placeholder}}</label>
+        </div>
+    </div>
+    {{/each}}
+    <div class="col-12 d-grid">
+        <button class="btn btn-primary" type="submit">Search</button>
+    </div>
+</form>
+
+<div class="row">
+  <div class="col-6">
+    <h1>{{page_name}}</h1>
+  </div>
+  {{#if add}}
+  <div class="col-6 d-flex justify-content-end">
+    <a href="/add/{{table}}" type="button" class="btn btn-primary align-self-center">+ add {{table}}</a>
+  </div>
+  {{/if}}
+</div>
+
+<table class="table table-bordered">
+    <thead class="thead-dark">
+        <tr>
+            {{#columns}}
+            <th scope="col">{{name}}</th>
+            {{/columns}}
+            <th scope="col" class="text-end">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each rows as |row|}}
+        <tr>
+            {{#../columns}}
+            <td>
+                {{#ifEquals (lookup row [col_name]) undefined}}
+                --
+                {{else}}
+                {{lookup row ../col_name}}
+                {{/ifEquals}}
+            </td>
+            {{/../columns}}
+            <td class="text-end">
+                {{#each ../actions}}
+                <a href="/{{this.path}}/{{../../table}}/{{row.id}}" type="button" class="btn btn-light btn-small"><i class="bi {{this.icon}}"></i> {{this.name}}</a>
+                {{/each}}
+            </td>
+        </tr>
+        {{/each}}
+
+    </tbody>
+</table>
+<nav aria-label="Pagination">
+  <ul class="pagination justify-content-center">
+    {{#each pages as |page|}}
+    <li class="page-item {{#if page.active}}active{{/if}}"><a class="page-link" href="/view/{{../table}}?page={{page.i}}{{#each ../filters as |filter|}}&{{filter.name}}={{filter.value}}{{/each}}">{{page.i}}</a></li>
+    {{/each}}
+  </ul>
+</nav>

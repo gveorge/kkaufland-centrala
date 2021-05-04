@@ -1,0 +1,23 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/view/{{table}}">{{page_name}}</a></li>
+        <li class="breadcrumb-item text-capitalize active" aria-current="page">Change stock</li>
+    </ol>
+</nav>
+
+{{#if alert}}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{alert}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{{/if}}
+
+<div class="row">
+  <div class="col-12">
+    <h1>{{name}} na sklade {{stock}}ks</h1>
+  </div>
+</div>
+
+<form class="row g-3 needs-validation" method="POST" action="/stock/{{table}}/{{id}}" novalidate>
+{{> form}}
+</form>

@@ -1,0 +1,28 @@
+{{#each inputs as |input|}}
+{{#ifEquals input.input_type  'textarea'}}
+<div class="col-12">
+    <div class="form-floating mb-3">
+        <textarea class="form-control" placeholder="{{input.placeholder}}" id="{{input.col_name}}" name="{{input.col_name}}" style="height: 200px">{{lookup ../../data input.col_name}}</textarea>
+        <label for="{{input.col_name}}">{{input.name}}</label>
+    </div>
+</div>
+{{else}}
+<div class="col-6">
+    <div class="form-floating mb-3">
+        {{#ifEquals input.input_type 'select'}}
+        <select  class="form-select" id="{{input.col_name}}" name="{{input.col_name}}">
+            {{#each (lookup ../../data input.col_name) as |option|}}
+            <option value="{{option.value}}" {{#if option.selected}}selected{{/if}}>{{option.name}}</option>
+            {{/each}}
+        </select>
+        {{else}}
+        <input type="{{input.input_type}}" class="form-control" id="{{input.col_name}}" value="{{lookup ../../data input.col_name}}" placeholder="{{input.placeholder}}" name="{{input.col_name}}">
+        {{/ifEquals}}
+        <label for="{{input.col_name}}">{{input.name}}</label>
+    </div>
+</div>
+{{/ifEquals}}
+{{/each}}
+<div class="col-12 d-grid">
+<button class="btn btn-primary" type="submit">Submit</button>
+</div>
